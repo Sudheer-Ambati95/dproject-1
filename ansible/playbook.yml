@@ -1,0 +1,17 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: Update and Install Docker
+      apt:
+        update_cache: yes
+        name: docker.io
+        state: present
+
+    - name: Start Docker Service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Run Node.js App Container
+      shell: docker run -d -p 8080:8080 sudheer1241/my-node-app
